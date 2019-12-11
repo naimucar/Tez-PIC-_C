@@ -1,0 +1,84 @@
+#include<16f877.h>
+#fuses xt,noprotect,nowdt
+#use delay(clock=4000000)
+
+void main()
+{
+int i,a=0;
+const int bcd[10]={0x40,0x79,0x24,0x30,0x19,0x12,0x02,0x78,0x00,0x10};
+output_b(0x00);
+basamak_1:
+for(i=0;i<=10;i++)
+   { 
+               output_high(pin_d1);
+               output_b(bcd[i]);
+               delay_ms(50);
+               output_low(pin_d1);
+          
+               output_high(pin_d0);
+               output_b(bcd[a]);
+               delay_ms(50);               
+               output_low(pin_d0);
+            
+          if(i==10) goto basamak_10;
+   }
+     basamak_10:
+                     a++;
+                     output_high(pin_d0);
+                     output_b(bcd[a]);
+                     output_low(pin_d0);
+                     if(a==10)
+                     {a=0;}
+     goto basamak_1;
+}
+[Opened Files]
+1=C:\OKUL\TEZ\PÝC C\PROGRAM_5\7segmentsayýcý.c
+2=
+[PROJECT]
+Processor_Text=PIC16F877
+Target=7segmentsayýcý.hex
+Development_Mode=
+Processor=0x877F
+ToolSuite=CCS
+[Directories]
+Include=D:\Program Files\PICC\devices\;D:\Program Files\PICC\drivers\;
+Library=
+LinkerScript=
+[defines]
+enabled=0
+D1=
+V1=
+[fileformats]
+forcecoff=0
+debug=4
+error=2
+object=0
+list=0
+scratch=0
+sta=1
+tre=1
+allerrors=1
+allwarnings=1
+stayupne=3
+stayupoe=0
+[Target Data]
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+FileList=C:\OKUL\TEZ\PÝC C\PROGRAM_5\7segmentsayýcý.c
+[7segmentsayýcý.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=C:\OKUL\TEZ\PÝC C\PROGRAM_5\7segmentsayýcý.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Count=1
+1=7segmentsayýcý.c (main)
+Link=0

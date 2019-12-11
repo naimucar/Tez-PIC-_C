@@ -1,0 +1,33 @@
+#include<16f877.h>
+#fuses nowdt,xt
+#use delay(clock=4000000)
+#include<lcd420.c>
+
+unsigned long int bilgi=0;
+
+void main()
+{ 
+set_tris_b(0x00);
+output_b(0x00);
+setup_adc(adc_clock_div_2);              //ADC ayarý clock sinyalini 2 ye böl
+setup_adc_ports(all_analog);             //bütün anolog giriþler aktif
+lcd_init();                              
+delay_ms(20);  
+lcd_gotoxy(1,1); 
+printf(lcd_putc,"\fADC KONTROL");       
+delay_ms(20);                                                                     
+
+while(1)                                                       
+{                                     
+bilgi=0;                            
+set_adc_channel(0);                      //aktif ve ayar edilecek kanal 0(RA0)
+delay_us(50);                            //min 30 mikrosaniye gecikme verilmelidir 
+bilgi=read_adc();                        //ADC deðeri bilgi deðiþkenine atanýyor
+delay_ms(500);
+ lcd_gotoxy(1,2); 
+printf(lcd_putc,"\fadc=%lu",bilgi);      //bilgi deðiþkenini lcd de göster
+                                       
+}
+}                                                       
+
+                                        

@@ -1,0 +1,10 @@
+ÀÄStep
+   ÀÄmain  0/81  Ram=1
+      ÃÄ??0??
+      ÃÄ@delay_ms1  0/21  Ram=1
+      ÃÄ@const46  0/12  Ram=0
+      ÃÄ@const46  0/12  Ram=0
+      ÃÄ@delay_ms1  0/21  Ram=1
+      ÃÄ@delay_ms1  0/21  Ram=1
+      ÃÄ@const46  0/12  Ram=0
+      ÀÄ@delay_ms1  0/21  Ram=1

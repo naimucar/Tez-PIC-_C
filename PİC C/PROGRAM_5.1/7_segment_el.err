@@ -1,0 +1,4 @@
+>>> Warning 214 "7_segment_el.c" Line 38(1,1): Operator precedance rules may not be as intended, use () to clarify
+>>> Warning 202 "7_segment_el.c" Line 7(13,14): Variable never used:   c
+      Memory usage:   ROM=2%      RAM=3% - 3%
+      0 Errors,  2 Warnings.

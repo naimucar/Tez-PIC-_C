@@ -1,0 +1,111 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+006     lcd
+008     PSP_DATA
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     lcdline
+02A     sayac
+02B     sayac1
+02C     x
+02D     @TRIS_C
+02E     lcd_init.i
+02E     MAIN.@SCRATCH1
+02F     lcd_init.@SCRATCH1
+038     timer0_kesmesi.@SCRATCH1
+039     @PRINTF_U_74.P1
+03A     @PRINTF_U_74.P1
+03B     @DIV88.P1
+03B     lcd_putc.c
+03C     @delay_ms1.P1
+03C     @DIV88.P2
+03C     lcd_gotoxy.x
+03D     lcd_gotoxy.y
+03D     @DIV88.@SCRATCH1
+03E     lcd_gotoxy.address
+03F     lcd_send_byte.address
+040     lcd_send_byte.n
+041     lcd_read_byte.low
+041     lcd_send_byte.@SCRATCH1
+042     lcd_read_byte.high
+042     lcd_send_nibble.n
+043     lcd_read_byte.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+0FF     @INTERRUPT_AREA
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+ROM Allocation:
+00D7  @delay_ms1
+0033  LCD_INIT_STRING
+006C  lcd_read_byte
+008D  lcd_send_nibble
+0099  lcd_send_byte
+01D6  lcd_init
+00B4  lcd_gotoxy
+00CF  @goto10076
+00EC  lcd_putc
+015E  timer0_kesmesi
+003B  @const84
+0114  @DIV88
+0129  @PRINTF_U_74
+01B7  MAIN
+004A  @const95
+0050  @const96
+0061  @const97
+01B7  @cinit
+
+Project Directory:
+    F:\okul\OKUL\TEZ\PÝC C\PROGRAM_15\
+
+Project Files:
+    10_kere.c
+    C:\Program Files\PICC\devices\16f877.h
+    C:\Program Files\PICC\drivers\lcd420.c
+
+Units:
+    F:\okul\OKUL\TEZ\PÝC C\PROGRAM_15\10_kere.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      10_kere.err
+    Ext Symbols: 10_kere.esym
+    INHX8:       10_kere.hex
+    Symbols:     10_kere.sym
+    List:        10_kere.lst
+    Debug/COFF:  10_kere.cof
+    Project:     10_kere.PJT
+    Call Tree:   10_kere.tre
+    Statistics:  10_kere.sta

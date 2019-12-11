@@ -1,0 +1,47 @@
+
+ROM used: 141 (2%)
+          141 (2%) including unused fragments
+
+          0 Average locations per line
+          5 Average locations per statement
+
+RAM used: 10 (3%) at main() level
+          10 (3%) worst case
+
+Stack used: 1 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   44    27 100  7segmentsayýcý.c
+  281     0   0  D:\Program Files\PICC\devices\16f877.h
+----- -----
+  325    27 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     21  15   1             @delay_ms1
+0     14  10   0             @const46
+0    102  72   4  1014  6.9  main
+
+Program metrics:
+    Functions               1
+    Statements              27
+    Comments                81
+    Volume (V)              1019
+    Difficilty (D)          6.7
+    Effort to implement (E) 6853
+    Time to implement (T)   6 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   4
+    Maintainability (MI)    130
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   137  1907  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

@@ -1,0 +1,96 @@
+CCS PCM C Compiler, Version 4.038, 62930               31-May-08 09:39
+
+               Filename: C:\OKUL\TEZ\PÝC C\PROGRAM_1\led_yak.lst
+
+               ROM used: 61 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 7 (2%) at main() level
+                         8 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include<16F877.h>                     //Pic'i tanýmla   
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+.................... #list 
+....................  
+.................... #fuses xt,NOWDT,NOPROTECT              //osilatörü seç,wdt'yi durdur                           
+.................... #use delay(clock=4000000)              //osilatör frekansýný 4 Mhz olarak  belirle                            
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETLW  00
+.................... #define motor_calis output_high(pin_b0)//motor_calis komutu ile B0 pinini 1 durumuna getir                             
+.................... #define motor_stop output_low(pin_b0)  //motor_stop komutu ile B0 pinini 0 durumuna getir    
+.................... void main () 
+....................  {                                              
+0019:  CLRF   04
+001A:  BCF    03.7
+001B:  MOVLW  1F
+001C:  ANDWF  03,F
+001D:  BSF    03.5
+001E:  BSF    1F.0
+001F:  BSF    1F.1
+0020:  BSF    1F.2
+0021:  BCF    1F.3
+....................  output_b(0x00);                       //b portuna sýfýrla 
+0022:  CLRF   06
+0023:  BCF    03.5
+0024:  CLRF   06
+.................... ana:  
+....................    motor_calis;                          //b0 pinini 1 durumuna getir 
+0025:  BSF    03.5
+0026:  BCF    06.0
+0027:  BCF    03.5
+0028:  BSF    06.0
+....................    delay_ms(500);                         //500 milisaniye bekle  
+0029:  MOVLW  02
+002A:  MOVWF  21
+002B:  MOVLW  FA
+002C:  MOVWF  22
+002D:  CALL   004
+002E:  DECFSZ 21,F
+002F:  GOTO   02B
+....................    motor_stop;                            //b0 pinini 0 durumuna getir 
+0030:  BSF    03.5
+0031:  BCF    06.0
+0032:  BCF    03.5
+0033:  BCF    06.0
+....................    delay_ms(500);                          //500 milisaniye bekle 
+0034:  MOVLW  02
+0035:  MOVWF  21
+0036:  MOVLW  FA
+0037:  MOVWF  22
+0038:  CALL   004
+0039:  DECFSZ 21,F
+003A:  GOTO   036
+.................... goto ana;                              //baþa dön 
+003B:  GOTO   025
+.................... } 
+....................                 
+....................  
+003C:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NOPROTECT BROWNOUT NOLVP NOCPD NOWRT NODEBUG

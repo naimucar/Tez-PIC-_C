@@ -1,0 +1,26 @@
+#include<16f877.h>                  //Pic'i tanýmla  
+#fuses xt,noprotect,nowdt           //osilatörü seç,wdt'yi durdur 
+#use delay(clock=4000000)           //osilatör frekansýný 4 Mhz olarak  belirle
+#define YAN output_high(pin_b0)     //YAN komutu ile B0 pinini 1 durumuna getir 
+#define SON output_low(pin_b0)      //SON komutu ile B0 pinini 0 durumuna getir 
+#define start input(pin_a0)         //A0 pinini "start " diye taný 
+#define stop input(pin_a1)          //A1 pinini "stop "diye taný 
+
+void main()
+{
+while(1)                            //sonsuz döngü(1 iken sürekli yap)
+ {
+
+if(start==0)                       //pin A0 1 ise 
+   {
+    delay_ms(200);                 // 30 ms bekle
+    YAN;                           //b0 pinini 1 durumuna getir 
+   }
+if(stop==0)
+   {
+   delay_ms(200);                  // 30 ms bekle
+   SON;SON;                        //b0 pinini 0 durumuna getir  
+   }
+ }
+
+}

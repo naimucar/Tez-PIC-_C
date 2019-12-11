@@ -1,0 +1,189 @@
+CCS PCM C Compiler, Version 4.038, 62930               02-May-08 08:04
+
+               Filename: C:\OKUL\TEZ\PÝC C\PROGRAM_9\PWM.lst
+
+               ROM used: 107 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 9 (2%) at main() level
+                         10 (3%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... //////////////////////////////////////////////////////////////////////////////////  
+.................... ///********************* ÝÞ SÜRESÝ HESABI ***********************************/////  
+.................... // tanýmlar:                                                                    //  
+.................... //                                                                              //  
+.................... // iþ süresi: bu süre PWM in +5 volt ta durma zamanýný ifade eder ortalama deðer//  
+.................... // formülüne göre bu süre ne kadar uzun olursa çýkýþ geriliminin ortalama deðeri//  
+.................... // o kadar fazla olur.                                                          //  
+.................... // frekans: frekans PWM in saniyedeki pals sayýsýný ifade eder. hesaplamalarda //  
+.................... // frekans t=1/f formülü ile süreye dönüþtürülerek hesaplamaya katýlýr.         //  
+.................... // PWM çalýþma mantýðý: PWM timer2 yi kullanýr. timer2 de gerekli ayarlanmalar  //  
+.................... // yapýlarak istenilen pwm frekansý elde edilir. set_pwm1_duty() komutu ile de  //  
+.................... // iþ süresi ayar edilir. Burada dikkat edilmesi gereken nokta biraz sonra hesap//  
+.................... // edeceðimiz maksimum iþ süresi deðerinden daha fazla deðerin iþ süresi olarak //  
+.................... // yüklenmemesi gerektiðidir.                                                   //  
+.................... //                                                                              //  
+.................... // Örnek: 8MHz lik bir kristal kullandýðýmýzý ve 1KHz lik PWM elde edeceðimizi  //  
+.................... // varsayarak gerekli hesaplarýmýzý yapalým                                     //  
+.................... // önce 1KHz in maksimum pals geniþliðini t=1/f formülü ile hesaplayalým        //  
+.................... // t=1/1000 = 1ms olarak buluruz. Bu PWM sinyalinin geiþliðinin 1ms olacaðý     //  
+.................... // anlamýna gelir.                                                              //  
+.................... // yüklenebilecek maksimum iþ süresini ise aþaðýdaki formülle hesaplarýz        //  
+.................... // iþ süresi = t/(t2 deðeri*(1/osilatör frekansý)) buradan elde edilen deðer    //  
+.................... // maksimum yüklenebilecek deðerdir ve bu deðerde çýkýþtan tam 5 volt elde      //  
+.................... // edilir. timer2 ye 16 yüklersek buna göre                                     //  
+.................... // iþ_süresi = 0.001/(16/(1/8000000)) = 500 bulunur                             //  
+.................... // 0 ile 500 arasýndaki deðerde çýkýþta bu deðerlerle orantýlý olarak 0 ile 5   //  
+.................... // volt arasý deðer elde edilir.                                                // 
+.................... // pr2 deðeri hesabý: bu deðer setup_timer_2(p1,p2,p3) deðerlerinin ikincisi    // 
+.................... // (p2) pr2 registerine yüklenen frekansý belirleyen deðerdir aþaðýdaki formülle// 
+.................... // hesaplanýr                                                                   //  
+.................... // (pr2+1) = t/(4*t2_deðeri*(1/Fosc)) bu formüle göre hesaplarsak               // 
+.................... // (pr2+1) = 0.001/(4*16*(1/8000000)) = 125 bulunur buradan pr2 = 125-1=124     // 
+.................... // olarak bulunur.                                                              // 
+.................... ////////////////////////////////////////////////////////////////////////////////// 
+.................... #include<16f877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+.................... #list 
+....................  
+.................... #device adc = 10                   
+.................... #fuses xt,nowdt,noprotect                   
+.................... #use delay(clock=8000000)               
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  02
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  97
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETLW  00
+....................  
+....................  
+.................... void main() 
+.................... { 
+0018:  CLRF   04
+0019:  BCF    03.7
+001A:  MOVLW  1F
+001B:  ANDWF  03,F
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+.................... int16 pvm ;   
+.................... setup_timer_2(T2_DIV_BY_16,124,1);     //pwm için timer2 ayarýný yap 
+*
+0024:  MOVLW  00
+0025:  MOVWF  78
+0026:  IORLW  06
+0027:  MOVWF  12
+0028:  MOVLW  7C
+0029:  BSF    03.5
+002A:  MOVWF  12
+.................... setup_ccp1(ccp_pwm);                  //ccp1 çýkýþý (RC2 pini) kullanacak 
+*
+0021:  MOVLW  FF
+0022:  BCF    03.5
+0023:  MOVWF  20
+*
+002B:  BCF    03.5
+002C:  BCF    20.2
+002D:  MOVF   20,W
+002E:  BSF    03.5
+002F:  MOVWF  07
+0030:  BCF    03.5
+0031:  BCF    07.2
+0032:  MOVLW  0C
+0033:  MOVWF  17
+....................  
+.................... setup_adc_ports( RA0_ANALOG );       
+0034:  BSF    03.5
+0035:  BCF    1F.0
+0036:  BSF    1F.1
+0037:  BSF    1F.2
+0038:  BSF    1F.3
+.................... setup_adc(ADC_CLOCK_INTERNAL);    
+0039:  BCF    03.5
+003A:  BSF    1F.6
+003B:  BSF    1F.7
+003C:  BSF    03.5
+003D:  BSF    1F.7
+003E:  BCF    03.5
+003F:  BSF    1F.0
+.................... set_adc_channel(0);                
+0040:  MOVLW  00
+0041:  MOVWF  78
+0042:  MOVF   1F,W
+0043:  ANDLW  C7
+0044:  IORWF  78,W
+0045:  MOVWF  1F
+.................... set_pwm1_duty(0); 
+0046:  CLRF   15
+....................  
+.................... while(1)                         
+.................... {pvm=read_adc();                //analog deðerini pvm deðiþkenine ata  
+0047:  BSF    1F.2
+0048:  BTFSC  1F.2
+0049:  GOTO   048
+004A:  BSF    03.5
+004B:  MOVF   1E,W
+004C:  BCF    03.5
+004D:  MOVWF  21
+004E:  MOVF   1E,W
+004F:  MOVWF  22
+.................... delay_ms(20);  
+0050:  MOVLW  14
+0051:  MOVWF  23
+0052:  CALL   004
+.................... set_pwm1_duty(pvm);             //pwm deðeri anologtan gelen bilgi ile yönlendir.   
+0053:  MOVF   22,W
+0054:  MOVWF  79
+0055:  MOVF   21,W
+0056:  MOVWF  78
+0057:  RRF    79,F
+0058:  RRF    78,F
+0059:  RRF    79,F
+005A:  RRF    78,F
+005B:  RRF    79,F
+005C:  MOVF   78,W
+005D:  MOVWF  15
+005E:  RRF    79,F
+005F:  RRF    79,W
+0060:  ANDLW  30
+0061:  MOVWF  77
+0062:  MOVF   17,W
+0063:  ANDLW  CF
+0064:  IORWF  77,W
+0065:  MOVWF  17
+.................... delay_ms(50);  
+0066:  MOVLW  32
+0067:  MOVWF  23
+0068:  CALL   004
+.................... }                          
+0069:  GOTO   047
+.................... }                       
+....................  
+....................  
+....................                                                                                                              
+006A:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NOPROTECT BROWNOUT NOLVP NOCPD NOWRT NODEBUG

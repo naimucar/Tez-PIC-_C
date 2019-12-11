@@ -1,0 +1,53 @@
+[Directories]
+Include=D:\Program Files\PICC\devices\;D:\Program Files\PICC\drivers\;
+Library=
+LinkerScript=
+[defines]
+enabled=0
+D1=
+V1=
+[fileformats]
+forcecoff=0
+debug=4
+error=2
+object=0
+list=0
+scratch=0
+sta=1
+tre=1
+allerrors=1
+allwarnings=1
+stayupne=3
+stayupoe=0
+[PROJECT]
+Target=timer0_kesme.hex
+Development_Mode=
+Processor=0x877F
+Processor_Text=PIC16F877
+ToolSuite=CCS
+[Target Data]
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+FileList=C:\OKUL\TEZ\PÝC C\PROGRAM_7.2\timer0_kesme.c
+[timer0_kesme.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=C:\OKUL\TEZ\PÝC C\PROGRAM_6.2\timer0_kesme.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Opened Files]
+1=C:\OKUL\TEZ\PÝC C\PROGRAM_7.2\timer0_kesme.c
+2=
+3=D:\Program Files\PICC\drivers\lcd420.c
+4=
+[Units]
+Count=1
+1=timer0_kesme.c (main)
+Link=0

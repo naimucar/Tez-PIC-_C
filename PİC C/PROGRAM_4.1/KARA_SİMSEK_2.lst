@@ -1,0 +1,162 @@
+CCS PCM C Compiler, Version 4.038, 62930               27-May-08 08:07
+
+               Filename: C:\OKUL\TEZ\PÝC C\PROGRAM_4.1\KARA_SÝMSEK_2.lst
+
+               ROM used: 110 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 9 (2%) at main() level
+                         10 (3%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include<16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #fuses noprotect,nowdt,xt 
+.................... #use delay(clock=4000000) 
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETLW  00
+....................  
+.................... void main() 
+.................... { 
+0019:  CLRF   04
+001A:  BCF    03.7
+001B:  MOVLW  1F
+001C:  ANDWF  03,F
+001D:  BSF    03.5
+001E:  BSF    1F.0
+001F:  BSF    1F.1
+0020:  BSF    1F.2
+0021:  BCF    1F.3
+0022:  MOVLW  07
+0023:  MOVWF  1C
+.................... unsigned int i; 
+.................... set_tris_c(0x00);          //c portunu çýkýþ yap 
+0024:  MOVLW  FF
+0025:  BCF    03.5
+0026:  MOVWF  20
+0027:  MOVLW  00
+0028:  BSF    03.5
+0029:  MOVWF  07
+002A:  BCF    03.5
+002B:  MOVWF  20
+....................  
+.................... ileri:  
+....................  
+....................   output_c(0x0);           //c portunu sýfýrla 
+002C:  MOVLW  00
+002D:  MOVWF  20
+002E:  BSF    03.5
+002F:  CLRF   07
+0030:  BCF    03.5
+0031:  CLRF   07
+....................   delay_ms(500); 
+0032:  MOVLW  02
+0033:  MOVWF  22
+0034:  MOVLW  FA
+0035:  MOVWF  23
+0036:  CALL   004
+0037:  DECFSZ 22,F
+0038:  GOTO   034
+....................   for(i=0;i<=255;i=i*2^2)  // i=255 olana kadar i=i*2^2 þeklinde artýr              
+0039:  CLRF   21
+....................    { 
+....................     output_c(i+1);         // i+1 deðerini port c de göster    
+003A:  MOVLW  01
+003B:  ADDWF  21,W
+003C:  MOVWF  22
+003D:  MOVLW  00
+003E:  MOVWF  20
+003F:  BSF    03.5
+0040:  CLRF   07
+0041:  BCF    03.5
+0042:  MOVF   22,W
+0043:  MOVWF  07
+....................     delay_ms(500); 
+0044:  MOVLW  02
+0045:  MOVWF  22
+0046:  MOVLW  FA
+0047:  MOVWF  23
+0048:  CALL   004
+0049:  DECFSZ 22,F
+004A:  GOTO   046
+....................     if(i==254)                          
+004B:  MOVF   21,W
+004C:  SUBLW  FE
+004D:  BTFSC  03.2
+....................     goto geri;                       
+004E:  GOTO   054
+....................    }                                   
+004F:  BCF    03.0
+0050:  RLF    21,W
+0051:  XORLW  02
+0052:  MOVWF  21
+0053:  GOTO   03A
+....................  
+.................... geri:  
+....................  
+....................     for(i=128;i>=0;i=i/2)          
+0054:  MOVLW  80
+0055:  MOVWF  21
+....................     { 
+....................      output_c(i-1);                             
+0056:  MOVLW  01
+0057:  SUBWF  21,W
+0058:  MOVWF  22
+0059:  MOVLW  00
+005A:  MOVWF  20
+005B:  BSF    03.5
+005C:  CLRF   07
+005D:  BCF    03.5
+005E:  MOVF   22,W
+005F:  MOVWF  07
+....................      delay_ms(500);                 
+0060:  MOVLW  02
+0061:  MOVWF  22
+0062:  MOVLW  FA
+0063:  MOVWF  23
+0064:  CALL   004
+0065:  DECFSZ 22,F
+0066:  GOTO   062
+....................      if(i==0)                             
+0067:  MOVF   21,F
+0068:  BTFSC  03.2
+....................      goto ileri;   
+0069:  GOTO   02C
+....................     } 
+006A:  BCF    03.0
+006B:  RRF    21,F
+006C:  GOTO   056
+.................... }         
+....................                              
+....................  
+....................  
+006D:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NODEBUG NOPROTECT BROWNOUT NOLVP NOCPD NOWRT

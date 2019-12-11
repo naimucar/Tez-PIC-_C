@@ -1,0 +1,104 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+006     lcd
+008     PSP_DATA
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     lcdline
+021     @TRIS_C
+022-023 MAIN.devir
+024-025 MAIN.sayac
+026     MAIN.i
+027     MAIN.PVM
+028     lcd_init.i
+028-029 @MUL1616.P1
+028     MAIN.@SCRATCH
+029     @PRINTF_U_74.P1
+029-02A @PRINTF_LU_74.P2
+029     lcd_init.@SCRATCH
+02A     @PRINTF_U_74.P1
+02A-02B @MUL1616.P2
+02B     @DIV88.P1
+02B     @PRINTF_LU_74.@SCRATCH
+02C     @DIV88.P1
+02C     @MUL1616.@SCRATCH
+02C     @PRINTF_LU_74.@SCRATCH
+02D     @DIV88.@SCRATCH
+02D     @PRINTF_LU_74.@SCRATCH
+02E     @PRINTF_LU_74.@SCRATCH
+02F     @PRINTF_LU_74.@SCRATCH
+030     @PRINTF_LU_74.@SCRATCH
+031     @PRINTF_LU_74.@SCRATCH
+032     lcd_putc.c
+033     @delay_ms1.P1
+033     lcd_gotoxy.x
+034     lcd_gotoxy.y
+035     lcd_gotoxy.address
+036     lcd_send_byte.address
+037     lcd_send_byte.n
+038     lcd_read_byte.low
+038     lcd_send_byte.@SCRATCH
+039     lcd_read_byte.high
+039     lcd_send_nibble.n
+03A     lcd_read_byte.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+0064  @delay_ms1
+0004  LCD_INIT_STRING
+0086  lcd_read_byte
+0079  lcd_send_nibble
+0085  lcd_send_byte
+00BF  lcd_init
+00EB  lcd_gotoxy
+0106  @goto10080
+010E  lcd_putc
+01FE  MAIN
+000C  @const88
+0012  @const89
+001F  @const90
+0030  @const92
+0044  @const94
+0136  @DIV88
+014B  @PRINTF_U_74
+0182  @MUL1616
+0051  @const104
+0199  @PRINTF_LU_74
+01FE  @cinit
+0231  ana_p
+
+Project Files:
+    mth.c
+    D:\Program Files\PICC\devices\16f877.h
+    D:\Program Files\PICC\drivers\LCD420.C
+
+Units:
+    C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      0
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.err
+    Ext Symbols: C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.esym
+    INHX8:       C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.hex
+    Symbols:     C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.sym
+    List:        C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.lst
+    Debug/COFF:  C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.cof
+    Project:     C:\OKUL\TEZ\PÝC C\PROGRAM_12\mth.PJT
+    Call Tree:   mth.tre
+    Statistics:  mth.sta

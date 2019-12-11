@@ -1,0 +1,10 @@
+>>> Warning 203 "timer0_kesme.c" Line 33(1,1): Condition always TRUE
+>>> Warning 216 "timer0_kesme.c" Line 39(0,1): Interrupts disabled during call to prevent re-entrancy:  (@delay_ms1)
+>>> Warning 216 "timer0_kesme.c" Line 39(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_send_nibble)
+>>> Warning 216 "timer0_kesme.c" Line 39(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_send_byte)
+>>> Warning 216 "timer0_kesme.c" Line 39(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_putc)
+>>> Warning 216 "timer0_kesme.c" Line 39(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_gotoxy)
+>>> Warning 202 "timer0_kesme.c" Line 5(14,20): Variable never used:   sayac1
+>>> Warning 202 "timer0_kesme.c" Line 5(23,24): Variable never used:   x
+      Memory usage:   ROM=6%      RAM=5% - 11%
+      0 Errors,  8 Warnings.

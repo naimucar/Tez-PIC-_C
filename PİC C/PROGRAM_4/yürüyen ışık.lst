@@ -1,0 +1,164 @@
+CCS PCM C Compiler, Version 4.038, 62930               01-May-08 12:11
+
+               Filename: C:\OKUL\TEZ\PÝC C\PROGRAM_4\yürüyen ýþýk.lst
+
+               ROM used: 111 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 8 (2%) at main() level
+                         9 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include<16f877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+.................... #list 
+....................  
+.................... #fuses noprotect,nowdt,XT 
+.................... #use delay(clock=4000000) 
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETLW  00
+....................  
+.................... void main() 
+.................... {                                 
+0019:  CLRF   04
+001A:  BCF    03.7
+001B:  MOVLW  1F
+001C:  ANDWF  03,F
+001D:  BSF    03.5
+001E:  BSF    1F.0
+001F:  BSF    1F.1
+0020:  BSF    1F.2
+0021:  BCF    1F.3
+.................... unsigned int i;                 //"i" isimli iþaretsiz(8 bit pozitif tamsayý) tanýmla  
+....................  
+.................... basla:   
+.................... for(i=1;i<=128;i=i*2)           //i=128 sayýsýna eþit olana kadar "i"deðerini 
+0022:  MOVLW  01
+0023:  BCF    03.5
+0024:  MOVWF  21
+0025:  MOVF   21,W
+0026:  SUBLW  80
+0027:  BTFSS  03.0
+0028:  GOTO   06E
+....................                                 // 2'nin katý þeklinde artýr 
+....................   {                         
+....................    output_B(i);                 //i deðerini B portunda göster                        
+0029:  BSF    03.5
+002A:  CLRF   06
+002B:  BCF    03.5
+002C:  MOVF   21,W
+002D:  MOVWF  06
+....................    delay_ms(500);               // 500 ms  saniye bekle 
+002E:  MOVLW  02
+002F:  MOVWF  22
+0030:  MOVLW  FA
+0031:  MOVWF  23
+0032:  CALL   004
+0033:  DECFSZ 22,F
+0034:  GOTO   030
+....................    if(i==128)                   //i =128 olursa aþaðýdakileri yap 
+0035:  MOVF   21,W
+0036:  SUBLW  80
+0037:  BTFSS  03.2
+0038:  GOTO   06B
+....................     {                                   
+....................        output_b(0xff);          //B portunu tamamen 1  yap 
+0039:  BSF    03.5
+003A:  CLRF   06
+003B:  MOVLW  FF
+003C:  BCF    03.5
+003D:  MOVWF  06
+....................        delay_ms(500);           // 500 ms  saniye bekle 
+003E:  MOVLW  02
+003F:  MOVWF  22
+0040:  MOVLW  FA
+0041:  MOVWF  23
+0042:  CALL   004
+0043:  DECFSZ 22,F
+0044:  GOTO   040
+....................        for(i=128;i>=1;i=i/2)     //i=1 sayýsýna eþit olana kadar "i"deðerini 
+0045:  MOVLW  80
+0046:  MOVWF  21
+0047:  MOVF   21,W
+0048:  SUBLW  00
+0049:  BTFSC  03.0
+004A:  GOTO   06B
+....................                                 // 2'ye böl      
+....................         {                                     
+....................          output_B(i);           //i deðerini B portunda göster 
+004B:  BSF    03.5
+004C:  CLRF   06
+004D:  BCF    03.5
+004E:  MOVF   21,W
+004F:  MOVWF  06
+....................          delay_ms(500);  
+0050:  MOVLW  02
+0051:  MOVWF  22
+0052:  MOVLW  FA
+0053:  MOVWF  23
+0054:  CALL   004
+0055:  DECFSZ 22,F
+0056:  GOTO   052
+....................          if(i==1)               //i=1 olursa   
+0057:  DECFSZ 21,W
+0058:  GOTO   068
+....................           {    
+....................             output_b(0xff);      //B portunu 1 yap 
+0059:  BSF    03.5
+005A:  CLRF   06
+005B:  MOVLW  FF
+005C:  BCF    03.5
+005D:  MOVWF  06
+....................             delay_ms(500);       //500 ms  saniye bekle 
+005E:  MOVLW  02
+005F:  MOVWF  22
+0060:  MOVLW  FA
+0061:  MOVWF  23
+0062:  CALL   004
+0063:  DECFSZ 22,F
+0064:  GOTO   060
+....................             goto basla;          // basla dizininin baþýna dön  
+0065:  BSF    03.5
+0066:  GOTO   022
+0067:  BCF    03.5
+....................           }                        
+....................         }  
+0068:  BCF    03.0
+0069:  RRF    21,F
+006A:  GOTO   047
+....................      }                               
+....................    }                                                                                      
+006B:  BCF    03.0
+006C:  RLF    21,F
+006D:  GOTO   025
+.................... }                  
+....................           
+....................                            
+006E:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NOPROTECT BROWNOUT NOLVP NOCPD NOWRT NODEBUG

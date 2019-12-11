@@ -1,0 +1,188 @@
+CCS PCM C Compiler, Version 4.038, 62930               01-May-08 12:47
+
+               Filename: C:\OKUL\TEZ\PÝC C\PROGRAM_5\7segmentsayýcý.lst
+
+               ROM used: 141 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 10 (3%) at main() level
+                         10 (3%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   027
+0003:  NOP
+.................... #include<16f877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+.................... #list 
+....................  
+.................... #fuses xt,noprotect,nowdt 
+.................... #use delay(clock=4000000) 
+0012:  MOVLW  24
+0013:  MOVWF  04
+0014:  BCF    03.7
+0015:  MOVF   00,W
+0016:  BTFSC  03.2
+0017:  GOTO   026
+0018:  MOVLW  01
+0019:  MOVWF  78
+001A:  CLRF   77
+001B:  DECFSZ 77,F
+001C:  GOTO   01B
+001D:  DECFSZ 78,F
+001E:  GOTO   01A
+001F:  MOVLW  4A
+0020:  MOVWF  77
+0021:  DECFSZ 77,F
+0022:  GOTO   021
+0023:  GOTO   024
+0024:  DECFSZ 00,F
+0025:  GOTO   018
+0026:  RETLW  00
+.................... void main() 
+.................... {  
+0027:  CLRF   04
+0028:  BCF    03.7
+0029:  MOVLW  1F
+002A:  ANDWF  03,F
+002B:  BSF    03.5
+002C:  BSF    1F.0
+002D:  BSF    1F.1
+002E:  BSF    1F.2
+002F:  BCF    1F.3
+.................... // Aþaðýdaki tablo ortak anotlu 7 segment display için olþturulmuþtur. 
+.................... unsigned int8 const  Tablo[10]={0x40,0x79,0x24,0x30,0x19,0x12,0x02,0x78,0x00,0x10};  
+.................... //8 bitlik pozitif tamsayýlardan oluþan "Tablo" isimli bir dizin oluþturuldu. 
+.................... //NOT:Sýra olarak 1,2,3,4,5,6,7,8,9,10 þeklinde olmasýna raðmen Tablo dizinideki sýralama 0,1,2,3,4,5,6,7,8,9 þeklinde 10 tane deðerdir, 
+.................... //Örnek verecek olursak 5.sýradaki(0x19 deðeri) için Tablo[4] þeklinde olmalýdýr. 
+....................  
+.................... int x=0, i,a=0; 
+0030:  BCF    03.5
+0031:  CLRF   21
+0032:  CLRF   23
+.................... set_tris_b(0x00);                       //b portunu çýkýþ yap 
+0033:  MOVLW  00
+0034:  BSF    03.5
+0035:  MOVWF  06
+.................... output_b(0x00);                         // b portunu sýfýrla 
+0036:  CLRF   06
+0037:  BCF    03.5
+0038:  CLRF   06
+.................... basamak_1: 
+.................... for(i=0;i<=10;i++)                      //i=10 olana kadar sayýyý artýr 
+0039:  CLRF   22
+003A:  MOVF   22,W
+003B:  SUBLW  0A
+003C:  BTFSS  03.0
+003D:  GOTO   075
+....................  {     
+....................           for(x=0;x<50;++x)             // sayýyý ekranda 50 defa göster     
+003E:  CLRF   21
+003F:  MOVF   21,W
+0040:  SUBLW  31
+0041:  BTFSS  03.0
+0042:  GOTO   073
+....................           {                                      
+....................                output_low(pin_d0);      //D0 pinini 0 durumuna getir   
+0043:  BSF    03.5
+0044:  BCF    08.0
+0045:  BCF    03.5
+0046:  BCF    08.0
+....................                output_high(pin_d1);     //D1 pinini 1 durumuna getir  
+0047:  BSF    03.5
+0048:  BCF    08.1
+0049:  BCF    03.5
+004A:  BSF    08.1
+....................                output_b(Tablo[i]);      //Tablo dizinindeki i sayýsýna denk gelen sayýyý b portunda göster  
+004B:  MOVF   22,W
+004C:  CALL   004
+004D:  MOVWF  24
+004E:  BSF    03.5
+004F:  CLRF   06
+0050:  BCF    03.5
+0051:  MOVF   24,W
+0052:  MOVWF  06
+....................                delay_ms(5); 
+0053:  MOVLW  05
+0054:  MOVWF  24
+0055:  CALL   012
+....................                output_low(pin_d1);      //D0 pinini 0 durumuna getir     
+0056:  BSF    03.5
+0057:  BCF    08.1
+0058:  BCF    03.5
+0059:  BCF    08.1
+....................            
+....................                output_high(pin_d0);     //D0 pinini 1 durumuna getir   
+005A:  BSF    03.5
+005B:  BCF    08.0
+005C:  BCF    03.5
+005D:  BSF    08.0
+....................                output_b(Tablo[a]);      //Tablo dizinindeki a sayýsýna denk gelen sayýyý b portunda göster 
+005E:  MOVF   23,W
+005F:  CALL   004
+0060:  MOVWF  24
+0061:  BSF    03.5
+0062:  CLRF   06
+0063:  BCF    03.5
+0064:  MOVF   24,W
+0065:  MOVWF  06
+....................                delay_ms(5);                
+0066:  MOVLW  05
+0067:  MOVWF  24
+0068:  CALL   012
+....................                output_low(pin_d0);     //D0 pinini 0 durumuna getir                        
+0069:  BSF    03.5
+006A:  BCF    08.0
+006B:  BCF    03.5
+006C:  BCF    08.0
+....................              
+....................                if(i==10) 
+006D:  MOVF   22,W
+006E:  SUBLW  0A
+006F:  BTFSC  03.2
+....................                goto basamak_10; 
+0070:  GOTO   075
+....................           } 
+0071:  INCF   21,F
+0072:  GOTO   03F
+....................  } 
+0073:  INCF   22,F
+0074:  GOTO   03A
+....................      basamak_10:                                       
+....................                a++; 
+0075:  INCF   23,F
+....................                output_high(pin_d0); 
+0076:  BSF    03.5
+0077:  BCF    08.0
+0078:  BCF    03.5
+0079:  BSF    08.0
+....................                output_b(Tablo[a]); 
+007A:  MOVF   23,W
+007B:  CALL   004
+007C:  MOVWF  24
+007D:  BSF    03.5
+007E:  CLRF   06
+007F:  BCF    03.5
+0080:  MOVF   24,W
+0081:  MOVWF  06
+....................                output_low(pin_d0); 
+0082:  BSF    03.5
+0083:  BCF    08.0
+0084:  BCF    03.5
+0085:  BCF    08.0
+....................                if(a==10) 
+0086:  MOVF   23,W
+0087:  SUBLW  0A
+0088:  BTFSS  03.2
+0089:  GOTO   08B
+....................                {a=0;} 
+008A:  CLRF   23
+....................                goto basamak_1; 
+008B:  GOTO   039
+.................... } 
+008C:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NOPROTECT BROWNOUT NOLVP NOCPD NOWRT NODEBUG

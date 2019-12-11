@@ -1,0 +1,104 @@
+CCS PCM C Compiler, Version 4.038, 62930               19-May-08 15:04
+
+               Filename: C:\OKUL\TEZ\PÝC C\PROGRAM_3\start_stop.lst
+
+               ROM used: 60 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 7 (2%) at main() level
+                         7 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include<16f877.h>                  //Pic'i tanýmla   
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+.................... #list 
+....................  
+.................... #fuses xt,noprotect,nowdt           //osilatörü seç,wdt'yi durdur  
+.................... #use delay(clock=4000000)           //osilatör frekansýný 4 Mhz olarak  belirle 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETLW  00
+.................... #define YAN output_high(pin_b0)     //YAN komutu ile B0 pinini 1 durumuna getir  
+.................... #define SON output_low(pin_b0)      //SON komutu ile B0 pinini 0 durumuna getir  
+.................... #define start input(pin_a0)         //A0 pinini "start " diye taný  
+.................... #define stop input(pin_a1)          //A1 pinini "stop "diye taný  
+....................  
+.................... void main() 
+.................... { 
+0019:  CLRF   04
+001A:  BCF    03.7
+001B:  MOVLW  1F
+001C:  ANDWF  03,F
+001D:  BSF    03.5
+001E:  BSF    1F.0
+001F:  BSF    1F.1
+0020:  BSF    1F.2
+0021:  BCF    1F.3
+.................... while(1)                            //sonsuz döngü(1 iken sürekli yap) 
+....................  { 
+....................  
+.................... if(start==0)                       //pin A0 0 ise  
+0022:  BSF    05.0
+0023:  BCF    03.5
+0024:  BTFSC  05.0
+0025:  GOTO   02D
+....................    { 
+....................     delay_ms(200);                 // 200 ms bekle 
+0026:  MOVLW  C8
+0027:  MOVWF  21
+0028:  CALL   004
+....................     YAN;                           //b0 pinini 1 durumuna getir  
+0029:  BSF    03.5
+002A:  BCF    06.0
+002B:  BCF    03.5
+002C:  BSF    06.0
+....................    } 
+.................... if(stop==0)                        //pin A1 0 ise  
+002D:  BSF    03.5
+002E:  BSF    05.1
+002F:  BCF    03.5
+0030:  BTFSC  05.1
+0031:  GOTO   039
+....................    { 
+....................    delay_ms(200);                  // 200 ms bekle 
+0032:  MOVLW  C8
+0033:  MOVWF  21
+0034:  CALL   004
+....................    SON;                       //b0 pinini 0 durumuna getir   
+0035:  BSF    03.5
+0036:  BCF    06.0
+0037:  BCF    03.5
+0038:  BCF    06.0
+....................    } 
+....................  } 
+0039:  BSF    03.5
+003A:  GOTO   022
+....................  
+.................... } 
+003B:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NOPROTECT BROWNOUT NOLVP NOCPD NOWRT NODEBUG
